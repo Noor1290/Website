@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="Style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <ul>
+      <!--Assigninig an icon for each option on the menu-->
+      <li>
+        <a href="#"
+          ><i id="icon" class="fa-solid fa-house"></i><span>Home</span></a
+        >
+      </li>
+      <li>
+        <a href="#"
+          ><i id="icon" class="fa-solid fa-list"></i><span>Description</span></a
+        >
+      </li>
+      <li class="active">
+        <a href="#"
+          ><i id="icon" class="fa-solid fa-table"></i><span>Table</span></a
+        >
+      </li>
+      <li>
+        <a href="#"
+          ><i id="icon" class="fa-solid fa-circle-info"></i
+          ><span>ContactUs</span></a
+        >
+      </li>
+      <li>
+        <a href="#"
+          ><i id="icon" class="fa-solid fa-user"></i><span>Account</span></a
+        >
+      </li>
+      <div id="selector"><span></span></div>
+    </ul>
+    <script>
+      let selector = document.querySelector("#selector");
+      let list = document.querySelectorAll("ul li");
+      const listItems = document.querySelectorAll(" ul li");
+
+      function moveIndicator(e) {
+        selector.style.left = e.currentTarget.offsetLeft + "px";
+        selector.style.width = e.currentTarget.offsetWidth + "px";
+      }
+
+      list.forEach((link) => {
+        link.addEventListener("click", moveIndicator);
+      });
+
+      function activeLink() {
+        list.forEach((item) => item.classList.remove("active"));
+        this.classList.add("active");
+      }
+
+      list.forEach((item) => item.addEventListener("click", activeLink));
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          const currentIndex = Array.from(list).findIndex((item) =>
+            item.classList.contains("active")
+          );
+          const nextIndex = (currentIndex + 1) % list.length;
+          list[nextIndex].click();
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          const currentIndex = Array.from(list).findIndex((item) =>
+            item.classList.contains("active")
+          );
+          const nextIndex = (currentIndex - 1 + list.length) % list.length;
+          list[nextIndex].click();
+        }
+      });
+
+      document.querySelectorAll("#icon").forEach((icon) => {
+        icon.addEventListener("mouseenter", () => {
+          icon.classList.add("flipped");
+        });
+        icon.addEventListener("mouseleave", () => {
+          icon.classList.remove("flipped");
+        });
+      });
+    </script>
+  </body>
+</html>
